@@ -14,6 +14,16 @@
     int delay;
 }
 
++ (id)sharedInstance {
+    static RNBackgroundTimer *sharedMyManager = nil;
+    @synchronized(self) {
+        if (sharedMyManager == nil)
+            sharedMyManager = [[self alloc] init];
+    }
+    return sharedMyManager;
+}
+
+
 RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents { return @[@"backgroundTimer", @"backgroundTimer.timeout"]; }
